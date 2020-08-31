@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="icon.png" />
+<title>New project</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function st(){
+let a=$("textarea").val();
+let text=$('<p id="text-holder"></p>').text(a);
+$("#box").append(text);
+$("textarea").remove();
+}
+function left(){
+let a=$("#left").val();
+if (a!==""){
+let i=a+"px";
+$("#box-style").append(`p{left:${i};}`);
+} 
+}
+</script>
+<script>
+function cw(){
+let a=$("#width").val();
+let b=$("#wunit").val();
+let i=a+b;
+if (b!==""){
+$("#box-style").append(`#box{width:${i};}`);
+}
+}
+function ch(){
+let a=$("#height").val();
+let b=$("#hunit").val();
+let i=a+b;
+if (b!==""){
+$("#box-style").append(`#box{height:${i};}`);
+}
+}
+function cbc(){
+let a=$("#bgcolor").val();
+$("#box-style").append(`#box{background:${a};}`);
+}
+function cbi(){
+let a=$("#bgimg").val();
+let i="url("+a+")";
+$("#box-style").append(`#box{background:${i};}`);
+}
+function cbcn(){
+const a=$("#nav-bgcolor").val();
+$("ul").css("background",a);
+}
+function ctcn(){
+let a=$("#nav-color").val();
+$("a").css("color",a);
+}
+function cfn(){
+let a=$("#nav-font").val();
+$("a").css("font-family",a);
+}
+function cfs(){
+let a=$("#nav-font-size").val();
+if (a!==""){
+let i=a+"px";
+$("a").css("font-size",i);
+}
+}
+function cfnp(){
+let a=$("#p-font").val();
+$("p").css("font-family",a);
+}
+function cfsp(){
+let a=$("#p-font-size").val();
+if (a!==""){
+let i=a+"px";
+$("p").css("font-size",i);
+}
+}
+function save(){
+const a=document.getElementById("file-container").innerHTML;
+let ii=confirm("do you want to save this file?")
+if (ii==true){
+let i=prompt("Enter file name");
+const b={name:i,htm:a};
+const x=localStorage.getItem("templates");
+if (!x || x==""){
+let list=[];
+list.push(b)
+localStorage.setItem("templates",JSON.stringify(list));
+}
+else{
+let files=JSON.parse(x);
+files.push(b);
+localStorage.setItem("templates",JSON.stringify(files));
+}
+}
+}
+function cth(){
+let a=$("#theight").val();
+let i=a+"%";
+$("textarea").css("height",i);
+}
+function cih(){
+let a=$("#iheight").val();
+if (a!==""){
+let i=a+"%";
+$("img").css("height",i);
+}
+}
+function ciw(){
+let a=$("#iwidth").val();
+if (a!==""){
+let i=a+"%";
+$("img").css("width",i);
+}
+}
+function ctw(){
+let a=$("#twidth").val();
+let i=a+"%";
+$("textarea").css("width",i);
+}
+function add(){
+const a=document.createElement("div");
+let i=document.querySelector(".navbarp").innerHTML;
+a.innerHTML=i+"<style>ul{list-style-type: none;margin: 0;padding: 0;overflow: hidden;background-color: #333;}li {float: left;}li a {display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;}li a:hover:not(.active){background-color: #111;}</style>";
+document.getElementById('box').appendChild(a);
+}
+function p(){
+const a=document.createElement("textarea");
+a.id="text";
+a.innerHTML="hello world!"
+document.getElementById('box').appendChild(a);
+}
+function img(){
+let a=prompt("Enter Image url");
+const image=document.createElement("img");
+image.src=a;
+document.getElementById('box').appendChild(image);
+}
+</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+</style>
+<style>
+body{background:grey;}
+.wrapper{position:relative;top:0px;}
+center{margin:auto;font-family: 'Lobster', cursive;}
+#box{height:700px;background:white;width:80%;}
+#side-nav{background:white;height:700px;width:40%;}
+#p{display:grid;grid-template-columns:50% 50%;}
+select{height:20px;}
+input{width:5%;}
+#bgimg,#height,#top,#img-top,#left,#twidth,#iwidth,#theight,#iheight,#nav-color,#nav-bgcolor,#bgcolor{width:15%;}
+.wrap{display:grid;grid-template-columns:50% 50%;}
+.navbarp{display:none;}
+h3{color:grey;}
+#nav-font-size,#nav-font,#p-font,#p-font-size{width:35%;}
+#save{padding:0px;color:white;background:grey;border:2px solid grey;font-family: 'Roboto', sans-serif;}
+#text{position:relative;width:30%;margin-right:auto;margin-left:auto;}
+p{position:relative;}
+img{margin:auto;position:relative;}
+.choose{text-decoration:none;color:white;font-family: 'Roboto', sans-serif;}
+</style>
+</head>
+<body onload="sessionStorage.setItem('box-style',JSON.stringify({width:80,height:700}))">
+<div class="wrapper">
+<div class="nav-bar"><h3>
+<button onclick="save()" id="save"><h2>Save</h2></button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button onclick="google()" id="save"><h2>Use a google font</h2></a>
+</h3></div>
+</div>
+<center><div id="file-container"><div id="box">
+<style id="box-style"></style></div></div><br><br><br><center class="wrap"><div id="side-nav">
+<h2>Container Frame</h2><br>
+<p id="p"><div><h3 style="color:grey;">height:<span id="x"><input type="text" id="height" value="700" onkeyup="ch()"/></span>
+<select id="hunit">
+  <option value="px">px</option>
+  <option value="%">%</option>
+  <option value="em">em</option>
+</select>
+<br><h3 style="color:grey;">width:<span id="x"><input type="text" id="width" value="80" onkeyup="cw()"/></span><select id="wunit">
+  <option value="%">%</option>
+ <option value="px">px</option>
+  <option value="em">em</option>
+</select><br>
+<br>background colour:<span id="x"><input type="text" id="bgcolor" value="white" onkeyup="cbc()"/></span>
+<br><br>background image:<span id="x"><input type="text" id="bgimg" value="none" onkeyup="cbi()"/></span><hr>
+<h2>Image</h2>
+<button onclick="img()" style="color:grey;background:white;border:2px solid white;"><h3>
+add image</h3></button>
+<h3>height:<span id="x"><input type="text" id="iheight" value="8" onkeyup="cih()"/>%</span></h3>
+<h3>width:<span id="x"><input type="text" id="iwidth" value="50" onkeyup="ciw()"/>%</span></h3>
+</div></h3></p>
+</div><div id="side-nav" class="i"><h2>Navbar</h2>
+<button onclick="add()" style="color:grey;background:white;border:2px solid white;"><h3>add navbar</h3></button>
+<h3>background colour:<span id="x"><input type="text" id="nav-bgcolor" value="black" onkeyup="cbcn()"/></span><br>
+text colour:<span id="x"><input type="text" id="nav-color" value="white" onkeyup="ctcn()"/></span>
+<br>
+font family:<span id="x"><input type="text" id="nav-font" value="'Lobster', cursive" onkeyup="cfn()"/></span>
+<br>
+font size:<span id="x"><input type="text" id="nav-font-size" value="20" onkeyup="cfs()"/></span></h3><hr>
+<h2>Text</h2>
+<button onclick="p()" style="color:grey;background:white;border:2px solid white;"><h3>
+add text</h3></button>
+<h3 style="color:grey;">height:<span id="x"><input type="text" id="theight" value="8" onkeyup="cth()"/>%</span>
+<h3 style="color:grey;">width:<span id="x"><input type="text" id="twidth" value="30" onkeyup="ctw()"/>%</span><br>
+font family:<span id="x"><input type="text" id="p-font" value="'Lobster', cursive" onkeyup="cfnp()"/></span><br>
+font size:<span id="x"><input type="text" id="p-font-size" value="20" onkeyup="cfsp()"/><br>
+top:<span id="x"><input type="text" id="top" value="0" onkeyup="t()"/><br>
+left:<span id="x"><input type="text" id="left" value="0" onkeyup="left()"/><br>
+colour:<span id="x"><input type="text" id="p-text-colour" value="black" onkeyup="col()" style="width:15%;"/><br>
+<button onclick="st()" style="color:grey;background:white;border:2px solid white;"><h3>
+save text</h3></button>
+</div></center></center>
+<script>
+function t(){
+let a=$("#top").val();
+if (a!==""){
+let i=a+"px";
+$("p").css("top",i);
+} 
+}
+function col(){
+const a=document.getElementById("p-text-colour").value
+document.getElementById("box-style").append(`p{color:${a}}`);
+}
+
+function topimg(){
+let a=$("#img-top").val();
+if (a!==""){
+let i=a+"px";
+$("img").css("top",i);
+} 
+}
+function google(){
+let a=prompt("Copy the link tag and paste it here");
+const p=$("<p></p>").html(a);
+$("#box").append(p);
+alert('now,you can copy the font name and paste it in the font family text box.')
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<div class="navbarp"><nav class="navbar">
+  <div class="container">
+
+    <div class="navbar-header">
+    </div>
+
+    <div class="navbar-menu" id="open-navbar1">
+      <ul class="navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li class="navbar-dropdown">
+          <a href="#" class="dropdown-toggler" data-dropdown="my-dropdown-id">
+            Categories <i class="fa fa-angle-down"></i>
+          </a>
+        </li>
+        <li class="navbar-dropdown">
+          <a href="#" class="dropdown-toggler" data-dropdown="blog">
+            Blog <i class="fa fa-angle-down"></i>
+          </a>
+        </li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav></div></body>
+</html>
